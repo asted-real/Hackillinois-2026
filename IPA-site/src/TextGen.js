@@ -4,16 +4,31 @@ import { useState } from "react";
 export default function TextGenerator() {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
-  const [difficulty, setDifficulty] = useState("easy"); // NEW
+  const [difficulty, setDifficulty] = useState(0); // NEW
 
   const generateText = async () => {
     setLoading(true);
+    // set difficulty based on dropdown
+    // call word_gen(difficulty) from app.py(flask file), which returns a word
+    // set text to that word
+    try {
+        const response = await fetch("http://localhost:5000/word_gen", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            difficulty: Number(difficulty),
+        }),
+        });
 
-    // Replace this with your API call
-    setTimeout(() => {
-      setText("This is your generated text output.");
+        const data = await response.json();
+        setText(data.word);
+    } catch (error) {
+        console.error("Error generating text:", error);
+        setText("Error generating text.");
+    }
       setLoading(false);
-    }, 1000);
   };
 
   return (
@@ -23,11 +38,11 @@ export default function TextGenerator() {
             <select
             className="dropdown"
             value={difficulty}
-            onChange={(e) => setDifficulty(e.target.value)}
+            onChange={(e) => setDifficulty(Number(e.target.value))}
             >
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
+            <option value={0}>Easy</option>
+            <option value={1}>Medium</option>
+            <option value={2}>Hard</option>
             </select>
         </div>
       <button 
