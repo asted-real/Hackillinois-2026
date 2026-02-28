@@ -31,7 +31,7 @@ export default function TextGenerator() {
             </select>
         </div>
       <button 
-        className="generate-button"
+        className='text_buttons'
         onClick={generateText}
         disabled={loading}
       >

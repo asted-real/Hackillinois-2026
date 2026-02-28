@@ -12,6 +12,30 @@
 }
 .Content {
 flex: 1;
+justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  gap:1vw;
+  border:none;
+  align-items: center;
+}
+.text_buttons {
+  color: white;
+  font-family: Playfair display;
+  font-size: large;
+  height: 50px;
+  width:220px;
+  background-color: #A1D6B1;
+  border-radius: 10px;
+  border: none;
+  justify-content: center;
+}
+
+button:hover {
+  background: #1D722A;
+  transform: scale(1.05);
 }
 
 body {
@@ -38,4 +62,55 @@ body {
 Keyboard {
   width: 80%;
   bottom: 0;
+}
+
+.logoCombo {
+  display: flex;
+  align-items: center;  
+}
+
+img {
+  margin:5px;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.input-label {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1D722A;
+}
+
+.text-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid #1D722A;
+  outline: none;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+}
+
+/* Hover effect */
+.text-input:hover {
+  border-color: #16b22e;
+}
+
+/* Focus effect */
+.text-input:focus {
+  border-color: #16b22e;
+  box-shadow: 0 0 0 3px rgba(29, 114, 42, 0.15);
+}
+
+/* Optional: subtle placeholder styling */
+.text-input::placeholder {
+  color: #999;
 }

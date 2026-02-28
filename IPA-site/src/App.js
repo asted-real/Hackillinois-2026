@@ -1,26 +1,33 @@
-import logo from './logo.svg';
+// import logo from '.../logo.svg';
 import './App.css';
 import TextGenerator from './TextGen';
 import Keyboard from './Keyboard';
 import VowelKeyboard from './Keyboard';
 import { useState } from "react";
+import logo from './wug.png';
 
 function App() {
   const [inputText, setInputText] = useState("");
   return (
     <div className="App">
-      <div className='Content'>
+      <div className='logoCombo'>
+        <img src={logo} width={40}/>
+      {/* <img src="img_girl.jpg" alt="Girl in a jacket" width="500" height="600"> */}
         <h1 className="phoneticate">Phonetiquette</h1>
+      </div>
+      <div className='Content'>
         <h4 className="desc">
           This is a tool to help practice translating English orthography to the symbols of the International Phonetic Alphabet (IPA).
         </h4>
-
+        <p>Select a mode and transcribe the word below:</p>
+        <TextGenerator />
         <div className='genWord'>
-          <p>Select a mode and transcribe the word below:</p>
-          <TextGenerator />
           <TextBox inputText={inputText} setInputText={setInputText} />
-          <CheckButton />
+          <div className='buttons'>
+            <CheckButton />
           <RevealButton />
+          </div>
+          
         </div> 
       </div>
       <Keyboard inputText={inputText} setInputText={setInputText} />
@@ -30,22 +37,26 @@ function App() {
 
 function TextBox({ inputText, setInputText }) {
   return (
-    <div>
-      <label>
-        Enter transcription:
-        <input
-          type="text"
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-        />
+    <div className="input-wrapper">
+      <label htmlFor="inp" className="input-label">
+        Enter transcription using keyboard below:
       </label>
+
+      <input
+        type="text"
+        id="inp"
+        className="text-input"
+        value={inputText}
+        onChange={(e) => setInputText(e.target.value)}
+        placeholder="Type IPA here..."
+      />
     </div>
   );
 }
 
 function CheckButton(){
   return(
-    <button>
+    <button className='text_buttons'>
       Check Answer
     </button>
   );
@@ -53,7 +64,7 @@ function CheckButton(){
 
 function RevealButton(){
   return(
-    <button>
+    <button className='text_buttons'>
       Reveal Answer
     </button>
   );

@@ -3,7 +3,7 @@
 } */
 .keyboards {
   display: flex;
-  gap: 2vw; 
+  gap: 1vw; 
   justify-content: center;
   align-items: flex-start;
 }
