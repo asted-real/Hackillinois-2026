@@ -2,39 +2,115 @@
   /* background: linear-gradient(0deg, #bff6ce, #F1FFF3); */
   font-family: Playfair display;
   height: 100vh; /* Full height */
-  display: flex; /* Center the content */
-  background-color: rgb(243, 255, 240);
+  width: 100vw; 
+  margin-left: 10px;
+  display: flex; 
+  flex-direction: column;
+  /* display: block, flex; */
+  background-color: rgb(249, 254, 248);
   /* background: linear-gradient(0deg, #F1FFF3, #D9FFDE); */
 }
+.Content {
+flex: 1;
+justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  gap:1vw;
+  border:none;
+  align-items: center;
+}
+.text_buttons {
+  color: white;
+  font-family: Playfair display;
+  font-size: large;
+  height: 50px;
+  width:220px;
+  background-color: #A1D6B1;
+  border-radius: 10px;
+  border: none;
+  justify-content: center;
+}
+
+button:hover {
+  background: #1D722A;
+  transform: scale(1.05);
+}
+
+body {
+  margin: 0;
+}
+
 .phoneticate {
   color: #1D722A;
-  margin: 10px;
+  /* margin-left: 10px; */
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+.desc {
+  text-align: left;
+  margin-top:0px;
+  /* margin-left:10px; */
+  font-weight: lighter;
 }
 
-/* .App-logo {
-  height: 40vmin;
-  pointer-events: none;
-} */
-
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
-
-.App-header {
-  
+.genword{
+  justify-content: center;
 }
 
-.App-link {
-  color: #000000;
+Keyboard {
+  width: 80%;
+  bottom: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logoCombo {
+  display: flex;
+  align-items: center;  
+}
+
+img {
+  margin:5px;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.input-label {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1D722A;
+}
+
+.text-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid #1D722A;
+  outline: none;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+}
+
+/* Hover effect */
+.text-input:hover {
+  border-color: #16b22e;
+}
+
+/* Focus effect */
+.text-input:focus {
+  border-color: #16b22e;
+  box-shadow: 0 0 0 3px rgba(29, 114, 42, 0.15);
+}
+
+/* Optional: subtle placeholder styling */
+.text-input::placeholder {
+  color: #999;
 }
