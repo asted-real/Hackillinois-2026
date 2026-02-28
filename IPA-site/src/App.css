@@ -1,8 +1,9 @@
 .App {
-  background: linear-gradient(0deg, #aaf4bf, #ffffff);
+  /* background: linear-gradient(0deg, #bff6ce, #F1FFF3); */
   font-family: Playfair display;
   height: 100vh; /* Full height */
   display: flex; /* Center the content */
+  background-color: rgb(243, 255, 240);
   /* background: linear-gradient(0deg, #F1FFF3, #D9FFDE); */
 }
 .phoneticate {
