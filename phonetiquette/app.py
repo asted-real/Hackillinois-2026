@@ -1,18 +1,14 @@
 import eng_to_ipa as ipa
 import word_funcs as wf
-from flask_cors import CORS
 
-from flask import Flask, request, jsonify
+
+from flask import Flask
 
 app = Flask(__name__)
-CORS(app) 
 
-
-@app.route('/word_gen', methods=['POST'])
-def word_gen():
-    data = request.get_json()
-    diff = data.get("difficulty", 0)
-    return jsonify({ 'word': wf.random_word(diff) })
+@app.route('/word_gen')
+def word_gen(diff):
+	return { 'word': wf.random_word(diff) } 
 
 @app.route('/check_answer')
 def check_answer(response,english):
