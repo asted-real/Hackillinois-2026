@@ -6,7 +6,7 @@ export default function GenerateAnswer({word, setAnswer, setAnswerText, answer})
 
     const generateTextAnswer = async () => {
       try {
-        const response = await fetch("https://hackillinois-2026.onrender.com/correct_answer", {
+        const response = await fetch("https://hackillinois-2026-production.up.railway.app/correct_answer", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
