@@ -1,5 +1,5 @@
 // import './App.css';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 // const [text,setText] = useState("");
 
 export default function TextGenerator({unlock, setWord, setInputText, setColor, setTextColor}) {

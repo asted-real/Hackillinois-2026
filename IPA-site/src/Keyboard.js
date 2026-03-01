@@ -1,4 +1,3 @@
-import { useState } from "react";
 import './Keyboard.css';
 
 export default function Keyboard({ inputText, setInputText }) {
@@ -14,14 +13,6 @@ export default function Keyboard({ inputText, setInputText }) {
       <ConsanantKeyboard onKeyClick={handleKeyClick} />
     </div>
   );
-}
-
-function KeyboardEvent({ keyboard = 1, onKeyClick }) {
-  if (keyboard === 1) {
-    return <VowelKeyboard onKeyClick={onKeyClick} />;
-  } else {
-    return <ConsanantKeyboard onKeyClick={onKeyClick} />;
-  }
 }
 
 function VowelKeyboard({ onKeyClick }) {

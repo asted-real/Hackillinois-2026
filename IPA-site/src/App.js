@@ -3,7 +3,6 @@ import './App.css';
 import GenerateAnswer from './AnswerGen';
 import TextGenerator from './TextGen';
 import Keyboard from './Keyboard';
-import VowelKeyboard from './Keyboard';
 import { useState } from "react";
 import logo from './wug.png';
 
@@ -18,7 +17,7 @@ function App() {
   return (
     <div className="App">
       <div className='logoCombo'>
-        <img src={logo} width={40}/>
+        <img src={logo} width={40} alt=""/>
         <h1 className="phoneticate">Phonetiquette</h1>
       </div>
       <div className='Content'>
@@ -68,13 +67,10 @@ function TextBox({ inputText, setInputText }) {
 }
 
 function CheckButton({isUnlocked, ipa, word, answerText ,setIsUnlocked, setColor, setTextColor}){
-    const [loading, setLoading] = useState(false);
-    const [feedback, setFeedback] = useState("");
     // fix
     // clear input box when correct/when reveal/when generate
     // find spot for correctness message
     const checkCorrect= async () => {
-      setLoading(true);
     // set difficulty based on dropdown
     // call word_gen(difficulty) from app.py(flask file), which returns a word
     // set text to that word
@@ -93,7 +89,7 @@ function CheckButton({isUnlocked, ipa, word, answerText ,setIsUnlocked, setColor
         const data = await response.json();
         const ans = document.getElementById('answer');
         
-        if(data.feedback == "Correct!!") {
+        if(data.feedback === "Correct!!") {
           ans.innerHTML = data.feedback + "<br>Your answer: " + answerText;
           setIsUnlocked(false);
           setColor("#e6f6ea");
@@ -103,20 +99,15 @@ function CheckButton({isUnlocked, ipa, word, answerText ,setIsUnlocked, setColor
           setColor("#fde8e8");
           setTextColor("#b91c1c")
         }
-        setFeedback(data.feedback);
     } catch (error) {
         console.error("Error generating text:", error);
-        setFeedback("Error generating text.");
     }
-      setLoading(false);
   };
   return(
     <div>
-      {/* <p>{ipa}</p> */}
-    
-    <button disabled={!isUnlocked} onClick = {isUnlocked?checkCorrect:null} className={isUnlocked?'text_buttons':"locked"}>
-      Check Answer
-    </button>
+	    <button disabled={!isUnlocked} onClick = {isUnlocked?checkCorrect:null} className={isUnlocked?'text_buttons':"locked"}>
+	      Check Answer
+	    </button>
     </div>
   );
 }
