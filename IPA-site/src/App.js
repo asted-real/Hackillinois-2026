@@ -8,6 +8,8 @@ import { useState } from "react";
 import logo from './wug.png';
 
 function App() {
+  const [color, setColor] = useState("#e6e6e6")
+  const [textColor, setTextColor] = useState("black")
   const [inputText, setInputText] = useState("");
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [word, setWord] = useState("");
@@ -28,17 +30,19 @@ function App() {
           more than one correct answer. Once 'Reveal Answer' is clicked or a correct answer is submitted, you must generate a new word to 
           continue.
         </h4>
-        <TextGenerator unlock={() => setIsUnlocked(true)} setWord={setWord} setInputText={setInputText}/>
+        <TextGenerator unlock={() => setIsUnlocked(true)} setWord={setWord} setInputText={setInputText} setColor = {setColor} setTextColor ={setTextColor}/>
         <div className='genWord'>
           <TextBox className="input" inputText={inputText} setInputText={setInputText} />
           <div className='buttons'>
-            <CheckButton isUnlocked={isUnlocked} word ={word} ipa = {inputText} answerText = {answerText}/>
-            <RevealButton isUnlocked={isUnlocked} answerText={answerText}/>
+            <CheckButton isUnlocked={isUnlocked} word ={word} ipa = {inputText} answerText = {answerText} setIsUnlocked = {setIsUnlocked} setTextColor ={setTextColor} setColor = {setColor}/>
+            <RevealButton isUnlocked={isUnlocked} answerText={answerText} setIsUnlocked = {setIsUnlocked} setColor = {setColor} setTextColor ={setTextColor}/>
           </div>
         </div> 
       </div>
       <GenerateAnswer word= {word} setAnswer = {setAnswer} answer={answer} setAnswerText = {setAnswerText}/>
-       <h3 id = 'answer' className="answer"> Feedback Here </h3> { /*// {answerText || "answer here"} */}
+       <h3 id = 'answer' className="answer" style={{
+    backgroundColor: color,  color: textColor,
+  }}> Feedback Here: <br/> Your Answer:  </h3> { /*// {answerText || "answer here"} */}
       <Keyboard inputText={inputText} setInputText={setInputText} />
     </div>
   );
@@ -63,7 +67,7 @@ function TextBox({ inputText, setInputText }) {
   );
 }
 
-function CheckButton({isUnlocked, ipa, word, answerText}){
+function CheckButton({isUnlocked, ipa, word, answerText ,setIsUnlocked, setColor, setTextColor}){
     const [loading, setLoading] = useState(false);
     const [feedback, setFeedback] = useState("");
     // fix
@@ -90,9 +94,14 @@ function CheckButton({isUnlocked, ipa, word, answerText}){
         const ans = document.getElementById('answer');
         
         if(data.feedback == "Correct!!") {
-          ans.textContent = data.feedback + ' ' + answerText;
+          ans.innerHTML = data.feedback + "<br>Your answer: " + answerText;
+          setIsUnlocked(false);
+          setColor("#e6f6ea");
+          setTextColor("#1a7f37")
         } else {
-          ans.textContent = data.feedback;
+          ans.innerHTML = "Incorrect, " + data.feedback + "<br>Your answer: " + ipa;
+          setColor("#fde8e8");
+          setTextColor("#b91c1c")
         }
         setFeedback(data.feedback);
     } catch (error) {
@@ -112,16 +121,19 @@ function CheckButton({isUnlocked, ipa, word, answerText}){
   );
 }
 
-function RevealButton({isUnlocked, answerText}){
+function RevealButton({isUnlocked, answerText, setIsUnlocked, setColor, setTextColor}){
   return(
-    <button  disabled={!isUnlocked} onClick={isUnlocked ? () => revealAnswer(answerText) : null} className={isUnlocked?'text_buttons':"locked"}>
+    <button  disabled={!isUnlocked} onClick={isUnlocked ? () => revealAnswer(answerText, setIsUnlocked, setColor, setTextColor) : null} className={isUnlocked?'text_buttons':"locked"}>
       Reveal Answer
     </button>
   );
 }
-function revealAnswer(answerText) {
+function revealAnswer(answerText, setIsUnlocked, setColor, setTextColor) {
   const ans = document.getElementById('answer');
-  ans.textContent = answerText;
+  ans.innerHTML = "Correct answer: <br>" + answerText;
+  setIsUnlocked(false);
+  setColor("#fde8e8");
+  setTextColor("#b91c1c")
 }
 
 export default App;
