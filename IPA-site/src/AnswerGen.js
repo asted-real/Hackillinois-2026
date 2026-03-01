@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function GenerateAnswer({word, setAnswer, answer, setAnswerText}) {
 //   const [answer, setAnswer] = useState([]);
