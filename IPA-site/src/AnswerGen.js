@@ -10,7 +10,7 @@ export default function GenerateAnswer({word, setAnswer, answer, setAnswerText})
       setLoading(true);
 
       try {
-        const response = await fetch("http://localhost:5000/correct_answer", {
+        const response = await fetch("https://hackillinois-2026.onrender.com/correct_answer", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
