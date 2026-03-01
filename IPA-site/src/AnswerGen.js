@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 
-export default function GenerateAnswer({word, setAnswer, answer, setAnswerText}) {
-//   const [answer, setAnswer] = useState([]);
-    useEffect(() => {
+export default function GenerateAnswer({word, setAnswer, setAnswerText, answer}) {
+  useEffect(() => {
     if (!word) return;
 
     const generateTextAnswer = async () => {
-
       try {
         const response = await fetch("https://hackillinois-2026.onrender.com/correct_answer", {
           method: "POST",
@@ -24,16 +22,14 @@ export default function GenerateAnswer({word, setAnswer, answer, setAnswerText})
       } catch (error) {
         console.error("Error generating answer:", error);
       }
-
     };
 
     generateTextAnswer();
-  }, [word]);
-    useEffect(() => {
-    console.log(answer);
-    }, [answer]);
+  }, [word, setAnswer, setAnswerText]); // Added missing dependencies
 
-  return (
-    null
-  );
-}  
+  useEffect(() => {
+    console.log(answer);
+  }, [answer]);
+
+  return null;
+}
