@@ -3,7 +3,6 @@ import './App.css';
 import GenerateAnswer from './AnswerGen';
 import TextGenerator from './TextGen';
 import Keyboard from './Keyboard';
-import VowelKeyboard from './Keyboard';
 import { useState } from "react";
 import logo from './wug.png';
 
@@ -40,9 +39,12 @@ function App() {
         </div> 
       </div>
       <GenerateAnswer word= {word} setAnswer = {setAnswer} answer={answer} setAnswerText = {setAnswerText}/>
-       <h3 id = 'answer' className="answer" style={{
+       <div className="answer" style={{
     backgroundColor: color,  color: textColor,
-  }}> Feedback Here: <br/> Your Answer:  </h3> { /*// {answerText || "answer here"} */}
+  }}> 
+        <h3 id = 'answer' className = "answerText"> Feedback Here: <br/> Your Answer:  </h3> 
+        <h3>Try Number: </h3>
+      </div>
       <Keyboard inputText={inputText} setInputText={setInputText} />
     </div>
   );

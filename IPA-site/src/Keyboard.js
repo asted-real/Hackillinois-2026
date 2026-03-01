@@ -25,9 +25,8 @@ function KeyboardEvent({ keyboard = 1, onKeyClick }) {
 }
 
 function VowelKeyboard({ onKeyClick }) {
-  const ipa_vowels = [
-    "i","ɪ","ɛ","æ","ʌ","ə","ɑ","ɔ","u","ʊ","ɝ","ɚ"
-  ];
+  const ipa_vowels = ['i','ɪ','ʊ', 'u', 'e', 'ə', 'ɜ', 'ɔ', 'æ', 'ʌ', 'ɑ', 'ɒ']; 
+
 
   return (
       <div className="grid-container-vowel">
@@ -43,10 +42,7 @@ function VowelKeyboard({ onKeyClick }) {
 }
 
 function ConsanantKeyboard({ onKeyClick }) {
-  const ipa_cons = [
-    "p","b","m","t","d","n","k","ɡ","ŋ","f","v","s","z",
-    "θ","ð","ʃ","ʒ","tʃ","dʒ","l","ɹ","j","w","h"
-  ];
+  const ipa_cons = ['p', 'b','t', 'd', 'tʃ', 'dʒ', 'k', 'ɡ', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'm', 'n', 'ŋ', 'h', 'l', 'ɹ', 'w', 'j'];
 
   return (
     <div className="grid-container-cons" style={{
