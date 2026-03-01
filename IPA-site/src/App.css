@@ -128,6 +128,7 @@ img {
   outline: none;
   transition: all 0.2s ease;
   background-color: #ffffff;
+  color: #999;
 }
 
 .dropdown-wrapper {
@@ -185,4 +186,5 @@ img {
 /* Optional: subtle placeholder styling */
 .text-input::placeholder {
   color: #999;
+  font-family: Playfair display;
 }
