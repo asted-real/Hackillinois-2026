@@ -1,7 +1,7 @@
 // import './App.css';
 import { useState } from "react";
 
-export default function TextGenerator() {
+export default function TextGenerator({unlock}) {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [difficulty, setDifficulty] = useState(0); // NEW
@@ -24,42 +24,46 @@ export default function TextGenerator() {
 
         const data = await response.json();
         setText(data.word);
+        
     } catch (error) {
         console.error("Error generating text:", error);
         setText("Error generating text.");
     }
+    unlock();
       setLoading(false);
   };
 
   return (
-    <div className="generator-container">
-        <div className="dropdown-wrapper">
-            <label className="dropdown-label">Difficulty: </label>
+    <div>
+        <div className="generator-container">
+            <div className="output-box">
+            {loading ? (
+            <div className="loader" />
+            ) : (
+            <p className="output-text">{text || "Your generated text will appear here."}</p>
+            )}
+            </div>
+            
+            <div className="gen_buttons_wrapper">
             <select
             className="dropdown"
             value={difficulty}
             onChange={(e) => setDifficulty(Number(e.target.value))}
             >
+            <option value={0}>Pick Mode</option>
             <option value={0}>Easy</option>
             <option value={1}>Medium</option>
             <option value={2}>Hard</option>
             </select>
+            <button 
+                className='gen_buttons'
+                onClick={generateText} 
+                disabled={loading}
+                >
+                {loading ? "Generating..." : "Generate Text"}
+            </button>
+            </div>
         </div>
-      <button 
-        className='text_buttons'
-        onClick={generateText}
-        disabled={loading}
-      >
-        {loading ? "Generating..." : "Generate Text"}
-      </button>
-
-      <div className="output-box">
-        {loading ? (
-          <div className="loader" />
-        ) : (
-          <p className="output-text">{text || "Your generated text will appear here."}</p>
-        )}
-      </div>
     </div>
   );
 }  

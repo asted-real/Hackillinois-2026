@@ -1,27 +1,50 @@
 .App {
   /* background: linear-gradient(0deg, #bff6ce, #F1FFF3); */
   font-family: Playfair display;
-  height: 100vh; /* Full height */
-  width: 100vw; 
-  margin-left: 10px;
+  height: 99vh; /* Full height */
+  width: 99vw; 
   display: flex; 
   flex-direction: column;
   /* display: block, flex; */
-  background-color: rgb(249, 254, 248);
+  background-color: rgb(255, 255, 255);
   /* background: linear-gradient(0deg, #F1FFF3, #D9FFDE); */
 }
 .Content {
-flex: 1;
-justify-content: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.directions {
+  font-size: medium;
+  font-weight: bolder;
 }
 
 .buttons {
   display: flex;
-  gap:1vw;
-  border:none;
-  align-items: center;
+  flex-direction: row;  
+  gap: 10px;
+  flex: 1;
 }
-.text_buttons {
+.gen_buttons_wrapper {
+  justify-content: center;
+  align-content: center;
+}
+.gen_buttons {
+  margin-left: 30px;
+  margin-right:300px;
+}
+.locked {
+color: white;
+  font-family: Playfair display;
+  font-size: large;
+  height: 50px;
+  width:220px;
+  background-color: #b5b4b4;
+  border-radius: 10px;
+  border: none;
+  justify-content: center;
+}
+.text_buttons, .gen_buttons {
   color: white;
   font-family: Playfair display;
   font-size: large;
@@ -31,6 +54,10 @@ justify-content: center;
   border-radius: 10px;
   border: none;
   justify-content: center;
+}
+.locked:hover {
+  background: #6c6c6c;
+  transform: scale(1.05);
 }
 
 button:hover {
@@ -45,18 +72,25 @@ body {
 .phoneticate {
   color: #1D722A;
   /* margin-left: 10px; */
+  /* margin-left: 10px; */
   margin-top: 10px;
   margin-bottom: 0px;
 }
 .desc {
   text-align: left;
-  margin-top:0px;
+  margin-top:20px;
   /* margin-left:10px; */
   font-weight: lighter;
+  margin-left: 10px;
 }
 
-.genword{
-  justify-content: center;
+.genWord {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;   /* aligns buttons nicely with input */
+  gap: 50px;               /*space between input and buttons */
+ width: 100%; 
+ margin-left: 220px;
 }
 
 Keyboard {
@@ -67,18 +101,57 @@ Keyboard {
 .logoCombo {
   display: flex;
   align-items: center;  
+  width:100%;
+  margin-left: 10px;
 }
 
 img {
   margin:5px;
 }
+.generator-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;  /* spreads them evenly */
+  align-items: center;            /* vertically aligns */
+  margin-left: 100px;
+}
+.dropdown {
+  font-family: Playfair display;
+  text-align: center;
+  width: 140px;
+  height: 25px;
+  margin-left: 10px;
+  border-radius: 5px;
+  font-size: medium;
+  border-radius: 8px;
+  border: 2px solid #1D722A;
+  outline: none;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+  color: #999;
+}
 
+.dropdown-wrapper {
+  margin-left: 20px;
+  flex:1;
+  justify-content: center; 
+}
+
+.output-box {
+  flex:1;
+  font-size: xx-large;
+  margin-left: 10px;
+}
+.input {
+  flex:1;
+}
 .input-wrapper {
+  justify-self: left;
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 400px;
-  margin: 20px auto;
+  margin: 10px;
 }
 
 .input-label {
@@ -100,7 +173,7 @@ img {
 }
 
 /* Hover effect */
-.text-input:hover {
+.text-input:hover, .dropdown:hover {
   border-color: #16b22e;
 }
 
@@ -113,4 +186,5 @@ img {
 /* Optional: subtle placeholder styling */
 .text-input::placeholder {
   color: #999;
+  font-family: Playfair display;
 }
