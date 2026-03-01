@@ -4,6 +4,7 @@ import word_funcs as wf
 import eng_to_ipa as ipa
 
 from flask import Flask
+import eng_to_ipa as ipa
 
 app = Flask(__name__)
 CORS(app)
