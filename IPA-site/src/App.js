@@ -34,11 +34,11 @@ function App() {
           more than one correct answer. Once 'Reveal Answer' is clicked or a correct answer is submitted, you must generate a new word to 
           continue. You have three trys to get the correct answer.
         </h4>
-        <TextGenerator unlock={() => setIsUnlocked(true)} setWord={setWord} setInputText={setInputText} setColor = {setColor} setTextColor ={setTextColor}/>
+        <TextGenerator unlock={() => setIsUnlocked(true)} setWord={setWord} setInputText={setInputText} setColor = {setColor} setTextColor ={setTextColor} inputText={inputText}/>
         <div className='genWord'>
           <TextBox className="input" inputText={inputText} setInputText={setInputText} />
           <div className='buttons'>
-            <CheckButton isUnlocked={isUnlocked} word ={word} ipa = {inputText} answerText = {answerText} setIsUnlocked = {setIsUnlocked} setTextColor ={setTextColor} setColor = {setColor} setCount={setCount} count = {count}/>
+            <CheckButton isUnlocked={isUnlocked} word ={word} ipa = {inputText} answerText = {answerText} setIsUnlocked = {setIsUnlocked} setTextColor ={setTextColor} setColor = {setColor} setCount={setCount} count = {count} inputText={inputText}/>
             <RevealButton isUnlocked={isUnlocked} answerText={answerText} setIsUnlocked = {setIsUnlocked} setColor = {setColor} setTextColor ={setTextColor}/>
           </div>
         </div> 
@@ -74,7 +74,7 @@ function TextBox({ inputText, setInputText }) {
   );
 }
 
-function CheckButton({isUnlocked, ipa, word, answerText ,setIsUnlocked, setColor, setTextColor, setCount, count}){
+function CheckButton({isUnlocked, ipa, word, answerText ,setIsUnlocked, setColor, setTextColor, setCount, count, inputText}){
     // fix
     // clear input box when correct/when reveal/when generate
     // find spot for correctness message
@@ -97,39 +97,40 @@ function CheckButton({isUnlocked, ipa, word, answerText ,setIsUnlocked, setColor
         const data = await response.json();
         const ans = document.getElementById('answer');
         const trys = document.getElementById('trys');
-        
-        if(data.feedback === "Correct!!") {
-          ans.innerHTML = data.feedback + "<br>Your answer: " + answerText;
-          setIsUnlocked(false);
-          setColor("#e6f6ea");
-          setTextColor("#1a7f37");
-          setCount(1);
-          trys.innerHTML = "Try Number: 0";
-        } else {
-          ans.innerHTML = "Incorrect, " + data.feedback + "<br>Your answer: " + ipa;
-          setColor("#fde8e8");
-          setTextColor("#b91c1c");
-          if(count == 3) {
-            const ans = document.getElementById('answer');
-            ans.innerHTML = "Correct answer: <br>" + answerText;
+        if(inputText !== "") {
+          if(data.feedback === "Correct!!") {
+            ans.innerHTML = data.feedback + "<br>Your answer: " + answerText;
             setIsUnlocked(false);
-            setColor("#fde8e8");
-            setTextColor("#b91c1c")
+            setColor("#e6f6ea");
+            setTextColor("#1a7f37");
             setCount(1);
             trys.innerHTML = "Try Number: 0";
-          }else {
-            trys.innerHTML = "Try Number: "+count;
-            setCount(prev=> prev + 1);
+          } else {
+            ans.innerHTML = "Incorrect, " + data.feedback + "<br>Your answer: " + ipa;
+            setColor("#fde8e8");
+            setTextColor("#b91c1c");
+            if(count === 3) {
+              const ans = document.getElementById('answer');
+              ans.innerHTML = "Correct answer: <br>" + answerText;
+              setIsUnlocked(false);
+              setColor("#fde8e8");
+              setTextColor("#b91c1c")
+              setCount(1);
+              trys.innerHTML = "Try Number: 0";
+            }else {
+              trys.innerHTML = "Try Number: "+count;
+              setCount(prev=> prev + 1);
+            }
+            
           }
-          
-        }
+      } 
     } catch (error) {
         console.error("Error generating text:", error);
     }
   };
   return(
     <div>
-	    <button disabled={!isUnlocked} onClick = {isUnlocked?checkCorrect:null} className={isUnlocked?'text_buttons':"locked"}>
+	    <button disabled={!isUnlocked || inputText === ""} onClick = {isUnlocked || !(inputText === "")?checkCorrect:null} className={isUnlocked?'text_buttons':"locked"}>
 	      Check Answer
 	    </button>
     </div>
