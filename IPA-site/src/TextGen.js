@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 // const [text,setText] = useState("");
 
-export default function TextGenerator({unlock, setWord, setInputText}) {
+export default function TextGenerator({unlock, setWord, setInputText, setColor, setTextColor}) {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [difficulty, setDifficulty] = useState(0); // NEW
@@ -33,8 +33,10 @@ export default function TextGenerator({unlock, setWord, setInputText}) {
     unlock();
       setLoading(false);
       const ans = document.getElementById('answer');
-      ans.textContent = "Feedback Here";
+      ans.innerHTML = "Feedback Here:<br>Your answer: ";
       setInputText('');
+      setColor("#e6e6e6");
+      setTextColor("black");
     //   const ans = document.getElementById('answer');
     //   ans.classList.remove('answer');
     //   ans.classList.add('AnswerHide');
@@ -47,7 +49,7 @@ export default function TextGenerator({unlock, setWord, setInputText}) {
             {loading ? (
             <div className="loader" />
             ) : (
-            <p className="output-text">{text || "Your generated text will appear here."}</p>
+            <p className="output-text">{text || "Generate Word Now"}</p>
             )}
             </div>
             
