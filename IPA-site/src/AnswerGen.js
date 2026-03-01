@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 
 export default function GenerateAnswer({word, setAnswer, answer, setAnswerText}) {
-  const [loading, setLoading] = useState(false);
 //   const [answer, setAnswer] = useState([]);
     useEffect(() => {
     if (!word) return;
 
     const generateTextAnswer = async () => {
-      setLoading(true);
 
       try {
         const response = await fetch("https://hackillinois-2026.onrender.com/correct_answer", {
@@ -27,7 +25,6 @@ export default function GenerateAnswer({word, setAnswer, answer, setAnswerText})
         console.error("Error generating answer:", error);
       }
 
-      setLoading(false);
     };
 
     generateTextAnswer();
