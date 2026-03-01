@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 // const [text,setText] = useState("");
 
-export default function TextGenerator({unlock, setWord}) {
+export default function TextGenerator({unlock, setWord, setInputText}) {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [difficulty, setDifficulty] = useState(0); // NEW
@@ -33,8 +33,11 @@ export default function TextGenerator({unlock, setWord}) {
     unlock();
       setLoading(false);
       const ans = document.getElementById('answer');
-      ans.classList.remove('answer');
-      ans.classList.add('AnswerHide');
+      ans.textContent = "Feedback Here";
+      setInputText('');
+    //   const ans = document.getElementById('answer');
+    //   ans.classList.remove('answer');
+    //   ans.classList.add('AnswerHide');
   };
 
   return (

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-export default function GenerateAnswer({word}) {
+export default function GenerateAnswer({word, setAnswer, answer, setAnswerText}) {
   const [loading, setLoading] = useState(false);
-  const [answer, setAnswer] = useState([]);
+//   const [answer, setAnswer] = useState([]);
     useEffect(() => {
     if (!word) return;
 
@@ -22,6 +22,7 @@ export default function GenerateAnswer({word}) {
 
         const data = await response.json();
         setAnswer(data.answer_list);
+        setAnswerText(data.answer_list.join(' '));
       } catch (error) {
         console.error("Error generating answer:", error);
       }
@@ -36,15 +37,6 @@ export default function GenerateAnswer({word}) {
     }, [answer]);
 
   return (
-    <div id = 'answer' className="AnswerHide">
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <div>{answer.map((item, index) => (
-          // Always provide a unique "key" prop for list items
-          <p key={index}>{item}</p>
-        ))}</div>
-      )}
-    </div>
+    null
   );
 }  

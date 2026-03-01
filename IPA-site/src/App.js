@@ -11,6 +11,8 @@ function App() {
   const [inputText, setInputText] = useState("");
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [word, setWord] = useState("");
+  const [answer, setAnswer] = useState([]);
+  const [answerText, setAnswerText] = useState("");
   return (
     <div className="App">
       <div className='logoCombo'>
@@ -26,16 +28,17 @@ function App() {
           more than one correct answer. Once 'Reveal Answer' is clicked or a correct answer is submitted, you must generate a new word to 
           continue.
         </h4>
-        <TextGenerator unlock={() => setIsUnlocked(true)} setWord={setWord} />
+        <TextGenerator unlock={() => setIsUnlocked(true)} setWord={setWord} setInputText={setInputText}/>
         <div className='genWord'>
           <TextBox className="input" inputText={inputText} setInputText={setInputText} />
           <div className='buttons'>
-            <CheckButton isUnlocked={isUnlocked} word ={word} ipa = {inputText}/>
-            <RevealButton isUnlocked={isUnlocked}/>
+            <CheckButton isUnlocked={isUnlocked} word ={word} ipa = {inputText} answerText = {answerText}/>
+            <RevealButton isUnlocked={isUnlocked} answerText={answerText}/>
           </div>
         </div> 
       </div>
-      <GenerateAnswer word= {word} />
+      <GenerateAnswer word= {word} setAnswer = {setAnswer} answer={answer} setAnswerText = {setAnswerText}/>
+       <h3 id = 'answer' className="answer"> Feedback Here </h3> { /*// {answerText || "answer here"} */}
       <Keyboard inputText={inputText} setInputText={setInputText} />
     </div>
   );
@@ -60,9 +63,9 @@ function TextBox({ inputText, setInputText }) {
   );
 }
 
-function CheckButton({isUnlocked, ipa, word}){
+function CheckButton({isUnlocked, ipa, word, answerText}){
     const [loading, setLoading] = useState(false);
-    const [correct, setCorrect] = useState("");
+    const [feedback, setFeedback] = useState("");
     // fix
     // clear input box when correct/when reveal/when generate
     // find spot for correctness message
@@ -72,7 +75,7 @@ function CheckButton({isUnlocked, ipa, word}){
     // call word_gen(difficulty) from app.py(flask file), which returns a word
     // set text to that word
     try {
-        const response = await fetch("http://localhost:5000/word_gen", {
+        const response = await fetch("http://localhost:5000/check_answer", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -84,43 +87,41 @@ function CheckButton({isUnlocked, ipa, word}){
         });
 
         const data = await response.json();
-        setCorrect(data.feedback);
-        if(correct == "Correct!!") {
-          reveal();
+        const ans = document.getElementById('answer');
+        
+        if(data.feedback == "Correct!!") {
+          ans.textContent = data.feedback + ' ' + answerText;
+        } else {
+          ans.textContent = data.feedback;
         }
+        setFeedback(data.feedback);
     } catch (error) {
         console.error("Error generating text:", error);
-        setCorrect("Error generating text.");
+        setFeedback("Error generating text.");
     }
       setLoading(false);
   };
-  const reveal = () => {
-      const ans = document.getElementById('answer');
-      ans.classList.remove('AnswerHide');
-      ans.classList.add('answer');
-  };
   return(
+    <div>
+      {/* <p>{ipa}</p> */}
+    
     <button disabled={!isUnlocked} onClick = {isUnlocked?checkCorrect:null} className={isUnlocked?'text_buttons':"locked"}>
       Check Answer
     </button>
+    </div>
   );
 }
 
-function RevealButton({isUnlocked}){
-  // if(isUnlocked) {
-  //   RevealIPA();
-  // }
-  const reveal = () => {
-      const ans = document.getElementById('answer');
-      ans.classList.remove('AnswerHide');
-      ans.classList.add('answer');
-  };
-  
+function RevealButton({isUnlocked, answerText}){
   return(
-    <button onClick = {isUnlocked?reveal:null} disabled={!isUnlocked} className={isUnlocked?'text_buttons':"locked"}>
+    <button  disabled={!isUnlocked} onClick={isUnlocked ? () => revealAnswer(answerText) : null} className={isUnlocked?'text_buttons':"locked"}>
       Reveal Answer
     </button>
   );
+}
+function revealAnswer(answerText) {
+  const ans = document.getElementById('answer');
+  ans.textContent = answerText;
 }
 
 export default App;
