@@ -1,0 +1,50 @@
+import { useState, useEffect } from "react";
+
+export default function GenerateAnswer({word}) {
+  const [loading, setLoading] = useState(false);
+  const [answer, setAnswer] = useState([]);
+    useEffect(() => {
+    if (!word) return;
+
+    const generateTextAnswer = async () => {
+      setLoading(true);
+
+      try {
+        const response = await fetch("http://localhost:5000/correct_answer", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            word: word,
+          }),
+        });
+
+        const data = await response.json();
+        setAnswer(data.answer_list);
+      } catch (error) {
+        console.error("Error generating answer:", error);
+      }
+
+      setLoading(false);
+    };
+
+    generateTextAnswer();
+  }, [word]);
+    useEffect(() => {
+    console.log(answer);
+    }, [answer]);
+
+  return (
+    <div id = 'answer' className="AnswerHide">
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <div>{answer.map((item, index) => (
+          // Always provide a unique "key" prop for list items
+          <p key={index}>{item}</p>
+        ))}</div>
+      )}
+    </div>
+  );
+}  

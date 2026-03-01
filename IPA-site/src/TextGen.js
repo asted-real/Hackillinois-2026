@@ -1,7 +1,8 @@
 // import './App.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+// const [text,setText] = useState("");
 
-export default function TextGenerator({unlock}) {
+export default function TextGenerator({unlock, setWord}) {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [difficulty, setDifficulty] = useState(0); // NEW
@@ -24,13 +25,16 @@ export default function TextGenerator({unlock}) {
 
         const data = await response.json();
         setText(data.word);
-        
+        setWord(data.word); 
     } catch (error) {
         console.error("Error generating text:", error);
         setText("Error generating text.");
     }
     unlock();
       setLoading(false);
+      const ans = document.getElementById('answer');
+      ans.classList.remove('answer');
+      ans.classList.add('AnswerHide');
   };
 
   return (
@@ -50,7 +54,7 @@ export default function TextGenerator({unlock}) {
             value={difficulty}
             onChange={(e) => setDifficulty(Number(e.target.value))}
             >
-            <option value={0}>Pick Mode</option>
+            <option value={-1}>Pick Mode</option>
             <option value={0}>Easy</option>
             <option value={1}>Medium</option>
             <option value={2}>Hard</option>
