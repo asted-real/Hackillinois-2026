@@ -14,6 +14,11 @@ function App() {
   const [word, setWord] = useState("");
   const [answer, setAnswer] = useState([]);
   const [answerText, setAnswerText] = useState("");
+  const [count, setCount] = useState(1);
+
+  // const handleIncrement = () => setCount(prev => prev + 1);
+  // const handleReset = () => setCount(0);
+
   return (
     <div className="App">
       <div className='logoCombo'>
@@ -27,13 +32,13 @@ function App() {
           would be to help grow a sense of familiarity with the sounds of Standard American English. Sourced from the Carnegie-Mellon 
           University Pronouncing Dictionary, the possible words include names, places, and words present in the dictionary. There may be 
           more than one correct answer. Once 'Reveal Answer' is clicked or a correct answer is submitted, you must generate a new word to 
-          continue.
+          continue. You have three trys to get the correct answer.
         </h4>
         <TextGenerator unlock={() => setIsUnlocked(true)} setWord={setWord} setInputText={setInputText} setColor = {setColor} setTextColor ={setTextColor}/>
         <div className='genWord'>
           <TextBox className="input" inputText={inputText} setInputText={setInputText} />
           <div className='buttons'>
-            <CheckButton isUnlocked={isUnlocked} word ={word} ipa = {inputText} answerText = {answerText} setIsUnlocked = {setIsUnlocked} setTextColor ={setTextColor} setColor = {setColor}/>
+            <CheckButton isUnlocked={isUnlocked} word ={word} ipa = {inputText} answerText = {answerText} setIsUnlocked = {setIsUnlocked} setTextColor ={setTextColor} setColor = {setColor} setCount={setCount} count = {count}/>
             <RevealButton isUnlocked={isUnlocked} answerText={answerText} setIsUnlocked = {setIsUnlocked} setColor = {setColor} setTextColor ={setTextColor}/>
           </div>
         </div> 
@@ -43,7 +48,7 @@ function App() {
     backgroundColor: color,  color: textColor,
   }}> 
         <h3 id = 'answer' className = "answerText"> Feedback Here: <br/> Your Answer:  </h3> 
-        <h3>Try Number: </h3>
+        <h3 id='trys'>Try Number: 0</h3>
       </div>
       <Keyboard inputText={inputText} setInputText={setInputText} />
     </div>
@@ -69,7 +74,7 @@ function TextBox({ inputText, setInputText }) {
   );
 }
 
-function CheckButton({isUnlocked, ipa, word, answerText ,setIsUnlocked, setColor, setTextColor}){
+function CheckButton({isUnlocked, ipa, word, answerText ,setIsUnlocked, setColor, setTextColor, setCount, count}){
     // fix
     // clear input box when correct/when reveal/when generate
     // find spot for correctness message
@@ -91,16 +96,32 @@ function CheckButton({isUnlocked, ipa, word, answerText ,setIsUnlocked, setColor
 
         const data = await response.json();
         const ans = document.getElementById('answer');
+        const trys = document.getElementById('trys');
         
         if(data.feedback === "Correct!!") {
           ans.innerHTML = data.feedback + "<br>Your answer: " + answerText;
           setIsUnlocked(false);
           setColor("#e6f6ea");
-          setTextColor("#1a7f37")
+          setTextColor("#1a7f37");
+          setCount(1);
+          trys.innerHTML = "Try Number: 0";
         } else {
           ans.innerHTML = "Incorrect, " + data.feedback + "<br>Your answer: " + ipa;
           setColor("#fde8e8");
-          setTextColor("#b91c1c")
+          setTextColor("#b91c1c");
+          if(count == 3) {
+            const ans = document.getElementById('answer');
+            ans.innerHTML = "Correct answer: <br>" + answerText;
+            setIsUnlocked(false);
+            setColor("#fde8e8");
+            setTextColor("#b91c1c")
+            setCount(1);
+            trys.innerHTML = "Try Number: 0";
+          }else {
+            trys.innerHTML = "Try Number: "+count;
+            setCount(prev=> prev + 1);
+          }
+          
         }
     } catch (error) {
         console.error("Error generating text:", error);
