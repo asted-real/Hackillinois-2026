@@ -78,7 +78,7 @@ function CheckButton({isUnlocked, ipa, word, answerText ,setIsUnlocked, setColor
     // call word_gen(difficulty) from app.py(flask file), which returns a word
     // set text to that word
     try {
-        const response = await fetch("https://hackillinois-2026-production.up.railway.app/check_answer", {
+        const response = await fetch("https://hackillinois-2026.onrender.com/check_answer", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

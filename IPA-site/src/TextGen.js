@@ -13,7 +13,7 @@ export default function TextGenerator({unlock, setWord, setInputText, setColor, 
     // call word_gen(difficulty) from app.py(flask file), which returns a word
     // set text to that word
     try {
-        const response = await fetch("https://hackillinois-2026-production.up.railway.app/word_gen", {
+        const response = await fetch("https://hackillinois-2026.onrender.com/word_gen", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
