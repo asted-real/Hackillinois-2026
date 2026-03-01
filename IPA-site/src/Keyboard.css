@@ -3,7 +3,7 @@
 } */
 .keyboards {
   display: flex;
-  gap: 1vw; 
+  gap: 0.5vw; 
   justify-content: center;
   align-items: flex-start;
   margin-left: 10px;
@@ -34,7 +34,7 @@
 .grid-button {
   aspect-ratio: 1 / 1; /* makes them square */
   font-family: Noto Sans;
-  width: 100%;
+  width: 90%;
   font-size: clamp(18px, 2.5vw, 40px);
   font-weight: bold;
   border: none;
