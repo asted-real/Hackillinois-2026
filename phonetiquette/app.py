@@ -2,8 +2,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import word_funcs as wf
 
-
 from flask import Flask
+import eng_to_ipa as ipa
 
 app = Flask(__name__)
 
