@@ -89,7 +89,7 @@ body {
   width: 97%;
   /* margin-top:20px; */
   /* margin-left:10px; */
-  font-weight:normal;
+  font-weight:bolder;
   margin-left: 20px;
 }
 
@@ -106,14 +106,18 @@ body {
   padding: 16px;
   border-radius: 8px;
 }
+.numbers {
+  /* display: flex; */
+  /* flex-direction: column; */
+}
 
 .answer {
   /* font-size: x-large; */
   display: flex;
   flex-direction: row;      /* ← horizontal */
-  justify-content: space-between;  /* pushes left/right */
+  justify-content:space-between;  /* pushes left/right */
   align-items: center;      /* vertically centered */
-  width: 96.5%;
+  width: 93%;
   height:60px;
   font-weight: normal;
   margin-left: 10px;
@@ -121,7 +125,7 @@ body {
   color:black;
   margin-top: 15px;
   margin-bottom: 15px;
-  padding: 16px;
+  padding: 16px 40px 16px 40px;
   border-radius: 8px;
   font-size: 20px;
 }
@@ -226,6 +230,7 @@ img {
   outline: none;
   transition: all 0.2s ease;
   background-color: #ffffff;
+  font-family: Playfair display;
 }
 
 /* Hover effect */
